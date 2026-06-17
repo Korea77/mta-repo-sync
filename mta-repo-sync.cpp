@@ -60,22 +60,6 @@ MTAEXPORT bool InitModule(
     *fVersion = 1.0f;
     g_pModuleManager = (ILuaModuleManager10*)pManager;
 
-    //try
-    //{
-    //    GitHubClient client(""); // token pusty dla publicznego repo
-    //    GitHubTree tree(client, "NullSystemWorks", "mtadayz", "legacy");
-
-    //    auto luaFiles = tree.GetLuaFiles();
-
-    //    for (const auto& file : luaFiles)
-    //    {
-    //        std::cout << file.path << " | " << file.sha << std::endl;
-    //    }
-    //}
-    //catch (const std::exception& e)
-    //{
-    //    std::cout << "[mta-repo-sync] GitHub error: " << e.what() << std::endl;
-    //}
 
     return true;
 }
