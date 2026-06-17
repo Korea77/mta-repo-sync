@@ -21,27 +21,50 @@ add_library(mta-repo-sync SHARED
 
     "utils/Base64.h"
     "utils/Base64.cpp"
-
 )
 
 target_include_directories(mta-repo-sync PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/include"
 )
 
-target_link_libraries(mta-repo-sync PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/lib/libcurl_a.lib"
-    "${CMAKE_CURRENT_SOURCE_DIR}/lib/lua51.lib"
 
-    ws2_32
-    wldap32
-    crypt32
-    normaliz
+set_target_properties(mta-repo-sync PROPERTIES
+    PREFIX ""
 )
 
-target_compile_definitions(mta-repo-sync PRIVATE
-    CURL_STATICLIB
-)
+if(WIN32)
 
-if (MSVC)
-    target_compile_options(mta-repo-sync PRIVATE /utf-8)
+    target_link_libraries(mta-repo-sync PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/libcurl_a.lib"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/lua51.lib"
+
+        ws2_32
+        wldap32
+        crypt32
+        normaliz
+    )
+
+    target_compile_definitions(mta-repo-sync PRIVATE
+        CURL_STATICLIB
+    )
+
+    if(MSVC)
+        target_compile_options(mta-repo-sync PRIVATE /utf-8)
+    endif()
+
+elseif(UNIX)
+
+    target_link_libraries(mta-repo-sync PRIVATE
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libcurl.so"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/liblua5.1.so"
+
+        pthread
+        dl
+    )
+
+    set_target_properties(mta-repo-sync PROPERTIES
+        BUILD_RPATH "$ORIGIN"
+        INSTALL_RPATH "$ORIGIN"
+    )
+
 endif()
