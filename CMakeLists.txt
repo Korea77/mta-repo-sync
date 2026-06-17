@@ -54,17 +54,16 @@ if(WIN32)
 
 elseif(UNIX)
 
+
     target_link_libraries(mta-repo-sync PRIVATE
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libcurl.so"
-        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/liblua5.1.so"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libcurl.a"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/liblua5.1.a"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libssl.a"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libcrypto.a"
+        "${CMAKE_CURRENT_SOURCE_DIR}/lib/linux/libz.a"
 
         pthread
         dl
-    )
-
-    set_target_properties(mta-repo-sync PROPERTIES
-        BUILD_RPATH "$ORIGIN"
-        INSTALL_RPATH "$ORIGIN"
     )
 
 endif()

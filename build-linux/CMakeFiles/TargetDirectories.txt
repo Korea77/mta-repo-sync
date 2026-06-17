@@ -1,0 +1,3 @@
+/project/build-linux/CMakeFiles/rebuild_cache.dir
+/project/build-linux/CMakeFiles/edit_cache.dir
+/project/build-linux/CMakeFiles/mta-repo-sync.dir
