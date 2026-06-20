@@ -8,9 +8,42 @@
 * Uses GitHub tree/blob API
 * Downloads only missing or changed files
 * Stores local SHA manifest to avoid unnecessary downloads
-* Works asynchronously, allowing Lua main thread to continue executing while the sync is in progress
-* Supports Windows `.dll` and Linux `.so` builds
-* Linux build can statically link dependencies such as curl, Lua, OpenSSL, and zlib
+* Works asynchronously, allowing Lua main thread to continue executing
+* Supports Windows and Linux 
+
+## Installation
+
+Copy the compiled module file to the correct MTA server modules directory.
+Create the directory if it does not exist.
+
+### 64-bit server
+
+For a 64-bit MTA server, place the module in:
+
+```text
+server/x64/modules/
+```
+
+### 32-bit server (not released yet)
+
+For a 32-bit MTA server, place the module in:
+
+```text
+server/mods/modules/
+```
+
+Example:
+
+```text
+server/mods/modules/mta-repo-sync.dll
+```
+
+## Running module
+
+```text
+loadmodule mta-repo-sync.dll
+```
+
 
 ## How it works
 
