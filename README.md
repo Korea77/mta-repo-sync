@@ -1,6 +1,27 @@
 ﻿# mta-repo-sync
 
 `mta-repo-sync` is a module for **Multi Theft Auto: San Andreas** that downloads and synchronizes server resource files from a GitHub repository.
+
+## Flowchart
+
+```mermaid
+flowchart LR
+    A[Lua resource calls github_connect] --> B[Module stores GitHub config]
+    B --> C[Lua resource calls github_sync]
+    C --> D[Background worker checks GitHub repository]
+    D --> E{Changes found?}
+
+    E -->|No| F[Set status: done]
+    E -->|Yes| G[Download changed or missing files]
+    G --> H[Replace files in mods/deathmatch/resources]
+    H --> I[Return changed resource names to Lua]
+
+    F --> J[Lua polls sync result<br/>github_has_result + github_get_changed_resources]
+    I --> J
+    J --> K[Lua handles restartResource]
+    K --> L[Clear sync result<br/>github_clear_result]
+```
+
 ## Features
 
 * Synchronize MTA Server resources from a GitHub repository
